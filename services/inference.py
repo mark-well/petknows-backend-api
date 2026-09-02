@@ -1,5 +1,7 @@
 import asyncio
 import threading
+import os
+from dotenv import load_dotenv
 
 import torch
 from PIL import Image
@@ -7,7 +9,10 @@ from PIL import Image
 from datasets.data_transformer import test_transform
 from siamese import SiamseNetwork
 
-MODEL_PATH = "models/siamese_resnet18_v6.pth"
+load_dotenv()
+
+MODEL_VERSION = os.environ.get("MODEL_VERSION")
+MODEL_PATH = f"models/{os.environ.get('MODEL')}.pth";
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 

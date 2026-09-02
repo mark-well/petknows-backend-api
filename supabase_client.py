@@ -15,3 +15,15 @@ def get_all_pets():
     )
 
     return response
+
+def match_pets(embedding: list[float], threshold: float, count: int, model_version: str) -> list[dict]:
+    response = supabase.rpc(
+        "match_pets",
+        {
+            "query_embedding": embedding,
+            "match_threshold": threshold,
+            "match_count": count,
+            "required_model_version": model_version,
+        },
+    ).execute()
+    return response.data
