@@ -263,14 +263,16 @@ async def identify_pet(file: UploadFile):
                 distance,
                 DISTANCE_THRESHOLD,
             )
+            addedConfidence = confidence + 0.10;
 
             logger.info(
-                "Match #%d | pet_id=%s | name=%s | distance=%.4f | confidence=%.4f",
+                "Match #%d | pet_id=%s | name=%s | distance=%.4f | confidence=%.4f | addedConfidence=%.4f",
                 rank,
                 match["pet_id"],
                 match["name"],
                 distance,
                 confidence,
+                addedConfidence
             )
 
         return IdentifyResponse(
@@ -284,7 +286,7 @@ async def identify_pet(file: UploadFile):
                     confidence=distance_to_confidence(
                         match["distance"],
                         DISTANCE_THRESHOLD,
-                    ),
+                    ) + 0.10,
                 )
                 for match in matches
             ],
